@@ -210,7 +210,7 @@ function About() {
         <div className="md:col-span-4 reveal">
           <SectionLabel>About</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl leading-[0.95]">
-            A <span className="font-script" style={{ color: "var(--pop-blue)" }}>T-shaped</span> mind.
+            A <span className="font-script" style={{ color: "var(--pop-blue)" }}>curious</span> mind.
           </h2>
         </div>
         <div className="md:col-span-7 md:col-start-6 space-y-6 text-lg leading-relaxed reveal">
@@ -219,9 +219,8 @@ function About() {
             patterns and interdisciplinary connections.
           </p>
           <p>
-            I believe in the T-shaped approach to learning: building broad foundational
-            knowledge across domains while developing deeper expertise in areas that
-            truly interest me.
+            I believe in building broad foundational knowledge across domains while
+            developing deeper expertise in areas that truly interest me.
           </p>
           <p className="text-muted-foreground">
             I enjoy exploring how ideas from different fields intersect and influence one
