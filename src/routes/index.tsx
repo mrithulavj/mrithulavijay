@@ -44,23 +44,29 @@ const INTERESTS = [
   { title: "History", desc: "Patterns that rhyme — context for almost everything else.", accent: "orange" },
 ] as const;
 
-type Cert = { issuer: string; title: string; date: string; id?: string };
+type CertCategory =
+  | "Finance & Investment Banking"
+  | "Financial Markets & Economics"
+  | "Data Analytics & Business Intelligence"
+  | "Technology & Computer Science"
+  | "Consulting & Strategy";
+type Cert = { issuer: string; title: string; date: string; id?: string; category: CertCategory };
 const CERTS: Cert[] = [
-  { issuer: "Yale University", title: "Financial Markets", date: "Jun 2026", id: "XKJ23HLKL90Z" },
-  { issuer: "J.P. Morgan Chase & Co.", title: "Quantitative Research", date: "Jun 2026" },
-  { issuer: "Deloitte", title: "Data Analytics", date: "May 2026" },
-  { issuer: "Anthropic", title: "Introduction to Agent Skills", date: "Mar 2026" },
-  { issuer: "BCG X", title: "Introduction to Data for Decision Makers", date: "Dec 2025", id: "WbBDb3oLYPsi6Bxib" },
-  { issuer: "Cisco Networking Academy", title: "Security and Connectivity", date: "Dec 2025" },
-  { issuer: "Cisco Networking Academy", title: "Introduction to Modern AI", date: "Dec 2025" },
-  { issuer: "Cisco Networking Academy", title: "HTML Essentials", date: "Sep 2025" },
-  { issuer: "City of Moreton Bay", title: "Economic Development", date: "Jul 2025", id: "XrvQY9yzRAeuPujCT" },
-  { issuer: "Microsoft", title: "Explore Generative AI", date: "Sep 2025" },
-  { issuer: "Bank of America", title: "Global Markets Sales and Trading Analysis", date: "Jul 2025", id: "Pd2suzdN5WJnEjtN9" },
-  { issuer: "NSW Government", title: "Economic Analysis", date: "Jul 2025", id: "QEwsEzrLPxgEQyXsh" },
-  { issuer: "University of Illinois Urbana-Champaign", title: "Financial Accounting: Foundations", date: "Aug 2025" },
-  { issuer: "University of Michigan", title: "Programming for Everybody (Getting Started with Python)", date: "Jun 2025" },
-  { issuer: "University of Michigan", title: "Python Data Structures", date: "Jul 2025" },
+  { category: "Financial Markets & Economics", issuer: "Yale University", title: "Financial Markets", date: "Jun 2026", id: "XKJ23HLKL90Z" },
+  { category: "Finance & Investment Banking", issuer: "J.P. Morgan Chase & Co.", title: "Quantitative Research", date: "Jun 2026" },
+  { category: "Data Analytics & Business Intelligence", issuer: "Deloitte", title: "Data Analytics", date: "May 2026" },
+  { category: "Technology & Computer Science", issuer: "Anthropic", title: "Introduction to Agent Skills", date: "Mar 2026" },
+  { category: "Consulting & Strategy", issuer: "BCG X", title: "Introduction to Data for Decision Makers", date: "Dec 2025", id: "WbBDb3oLYPsi6Bxib" },
+  { category: "Technology & Computer Science", issuer: "Cisco Networking Academy", title: "Security and Connectivity", date: "Dec 2025" },
+  { category: "Technology & Computer Science", issuer: "Cisco Networking Academy", title: "Introduction to Modern AI", date: "Dec 2025" },
+  { category: "Technology & Computer Science", issuer: "Cisco Networking Academy", title: "HTML Essentials", date: "Sep 2025" },
+  { category: "Financial Markets & Economics", issuer: "City of Moreton Bay", title: "Economic Development", date: "Jul 2025", id: "XrvQY9yzRAeuPujCT" },
+  { category: "Technology & Computer Science", issuer: "Microsoft", title: "Explore Generative AI", date: "Sep 2025" },
+  { category: "Finance & Investment Banking", issuer: "Bank of America", title: "Global Markets Sales and Trading Analysis", date: "Jul 2025", id: "Pd2suzdN5WJnEjtN9" },
+  { category: "Financial Markets & Economics", issuer: "NSW Government", title: "Economic Analysis", date: "Jul 2025", id: "QEwsEzrLPxgEQyXsh" },
+  { category: "Finance & Investment Banking", issuer: "University of Illinois Urbana-Champaign", title: "Financial Accounting: Foundations", date: "Aug 2025" },
+  { category: "Technology & Computer Science", issuer: "University of Michigan", title: "Programming for Everybody (Getting Started with Python)", date: "Jun 2025" },
+  { category: "Technology & Computer Science", issuer: "University of Michigan", title: "Python Data Structures", date: "Jul 2025" },
 ];
 
 function Home() {
