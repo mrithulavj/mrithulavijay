@@ -239,14 +239,22 @@ function Education() {
       school: "Easwari Engineering College",
       degree: "Bachelor of Engineering (B.E.) — Computer Science and Engineering",
       period: "2025 – 2029",
+      grades: "",
       activities: ACTIVITIES,
       accent: "pink" as const,
     },
     {
       school: "Chettinad Hari Shree Vidyalayam",
-      degree: "School Education",
-      period: "",
-      activities: [] as string[],
+      degree: "ICSE & ISC School Education",
+      period: "Until 2025",
+      grades: "ICSE Class X — 95%  ·  ISC Class XII — 93%",
+      activities: [
+        "Under-Secretary General & Public Relations, CHSV MUN 2024",
+        "Public Relations & Design Team, Vizha (School Cultural Fest)",
+        "Model United Nations",
+        "Quizzing Competitions",
+        "Shark Tank Competitions",
+      ],
       accent: "blue" as const,
     },
   ];
@@ -276,10 +284,13 @@ function Education() {
                   <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">{it.period}</div>
                   <h3 className="font-display text-2xl md:text-3xl">{it.school}</h3>
                   <p className="mt-2 text-muted-foreground">{it.degree}</p>
+                  {it.grades && (
+                    <p className="mt-2 text-sm" style={{ color: c }}>{it.grades}</p>
+                  )}
                   {it.activities.length > 0 && (
                     <div className="mt-5">
                       <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3">
-                        Activities & Societies
+                        Activities & Leadership
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {it.activities.map((a, i) => (
