@@ -142,14 +142,11 @@ function Hero() {
           <h1 className="font-display text-[clamp(3rem,9vw,8.5rem)] leading-[0.92]">
             MRITHULA
             <br />
-            <span style={{ color: "var(--muted-foreground)" }}>VIJAY,</span>
-            <br />
-            <span className="font-script" style={{ color: "var(--pop-pink)" }}>curious </span>
-            <span className="font-script">by default.</span>
+            <span style={{ color: "var(--muted-foreground)" }}>VIJAY.</span>
           </h1>
           <p className="mt-8 max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed">
-            Computer Science Engineering student building broad foundations across
-            AI, economics, geopolitics, and history — and depth where curiosity pulls hardest.
+            <span className="font-script text-2xl md:text-3xl" style={{ color: "var(--pop-pink)" }}>Computer Science </span>
+            <span className="font-script text-2xl md:text-3xl">Engineering Student.</span>
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
