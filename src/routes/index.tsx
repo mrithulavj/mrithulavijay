@@ -363,8 +363,8 @@ function Certifications() {
   const [active, setActive] = useState<Cert | null>(null);
   const [filter, setFilter] = useState<string>("All");
 
-  const issuers = useMemo(() => {
-    const set = new Set(CERTS.map((c) => c.issuer.split(" ")[0]));
+  const categories = useMemo(() => {
+    const set = new Set<string>(CERTS.map((c) => c.category));
     return ["All", ...Array.from(set)];
   }, []);
 
@@ -372,10 +372,20 @@ function Certifications() {
     const matchQ =
       q === "" ||
       c.title.toLowerCase().includes(q.toLowerCase()) ||
-      c.issuer.toLowerCase().includes(q.toLowerCase());
-    const matchF = filter === "All" || c.issuer.startsWith(filter);
+      c.issuer.toLowerCase().includes(q.toLowerCase()) ||
+      c.category.toLowerCase().includes(q.toLowerCase());
+    const matchF = filter === "All" || c.category === filter;
     return matchQ && matchF;
   });
+
+  const visibleCategories = (filter === "All" ? categories.slice(1) : [filter]).filter((cat) =>
+    filtered.some((c) => c.category === cat)
+  );
+
+  const catAccent = (cat: string) => {
+    const idx = categories.indexOf(cat);
+    return idx % 3 === 1 ? "var(--pop-pink)" : idx % 3 === 2 ? "var(--pop-blue)" : "var(--pop-orange)";
+  };
 
   return (
     <section id="certifications" className="px-6 md:px-10 py-24 md:py-32 border-t border-border">
@@ -387,7 +397,7 @@ function Certifications() {
           </h2>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-3 md:items-center mb-8 reveal">
+        <div className="flex flex-col md:flex-row gap-3 md:items-center mb-10 reveal">
           <div className="relative flex-1 max-w-md">
             <Search className="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
@@ -398,7 +408,7 @@ function Certifications() {
             />
           </div>
           <div className="flex flex-wrap gap-2">
-            {issuers.slice(0, 7).map((f, i) => (
+            {categories.map((f, i) => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
@@ -413,24 +423,38 @@ function Certifications() {
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filtered.map((c, i) => {
-            const accent = i % 3 === 0 ? "var(--pop-pink)" : i % 3 === 1 ? "var(--pop-blue)" : "var(--pop-orange)";
+        <div className="space-y-14">
+          {visibleCategories.map((cat) => {
+            const accent = catAccent(cat);
+            const items = filtered.filter((c) => c.category === cat);
             return (
-              <button
-                key={c.title + c.issuer}
-                onClick={() => setActive(c)}
-                className="group text-left rounded-2xl border border-border p-6 bg-card hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{c.date}</span>
-                  <ArrowUpRight className="size-4 text-muted-foreground transition-transform group-hover:rotate-45" style={{ color: accent }} />
+              <div key={cat} className="reveal">
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="size-2 rounded-full" style={{ background: accent }} />
+                  <h3 className="font-display text-xl md:text-2xl">{cat}</h3>
+                  <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                    {items.length} {items.length === 1 ? "credential" : "credentials"}
+                  </span>
                 </div>
-                <h3 className="font-display text-lg leading-tight mb-2 group-hover:[color:var(--hc)] transition-colors" style={{ ["--hc" as string]: accent }}>
-                  {c.title}
-                </h3>
-                <p className="text-sm text-muted-foreground">{c.issuer}</p>
-              </button>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {items.map((c) => (
+                    <button
+                      key={c.title + c.issuer}
+                      onClick={() => setActive(c)}
+                      className="group text-left rounded-2xl border border-border p-6 bg-card hover:-translate-y-1 transition-all duration-300"
+                    >
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{c.date}</span>
+                        <ArrowUpRight className="size-4 transition-transform group-hover:rotate-45" style={{ color: accent }} />
+                      </div>
+                      <h4 className="font-display text-lg leading-tight mb-2 group-hover:[color:var(--hc)] transition-colors" style={{ ["--hc" as string]: accent }}>
+                        {c.title}
+                      </h4>
+                      <p className="text-sm text-muted-foreground">{c.issuer}</p>
+                    </button>
+                  ))}
+                </div>
+              </div>
             );
           })}
         </div>
