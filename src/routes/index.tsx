@@ -44,23 +44,29 @@ const INTERESTS = [
   { title: "History", desc: "Patterns that rhyme — context for almost everything else.", accent: "orange" },
 ] as const;
 
-type Cert = { issuer: string; title: string; date: string; id?: string };
+type CertCategory =
+  | "Finance & Investment Banking"
+  | "Financial Markets & Economics"
+  | "Data Analytics & Business Intelligence"
+  | "Technology & Computer Science"
+  | "Consulting & Strategy";
+type Cert = { issuer: string; title: string; date: string; id?: string; category: CertCategory };
 const CERTS: Cert[] = [
-  { issuer: "Yale University", title: "Financial Markets", date: "Jun 2026", id: "XKJ23HLKL90Z" },
-  { issuer: "J.P. Morgan Chase & Co.", title: "Quantitative Research", date: "Jun 2026" },
-  { issuer: "Deloitte", title: "Data Analytics", date: "May 2026" },
-  { issuer: "Anthropic", title: "Introduction to Agent Skills", date: "Mar 2026" },
-  { issuer: "BCG X", title: "Introduction to Data for Decision Makers", date: "Dec 2025", id: "WbBDb3oLYPsi6Bxib" },
-  { issuer: "Cisco Networking Academy", title: "Security and Connectivity", date: "Dec 2025" },
-  { issuer: "Cisco Networking Academy", title: "Introduction to Modern AI", date: "Dec 2025" },
-  { issuer: "Cisco Networking Academy", title: "HTML Essentials", date: "Sep 2025" },
-  { issuer: "City of Moreton Bay", title: "Economic Development", date: "Jul 2025", id: "XrvQY9yzRAeuPujCT" },
-  { issuer: "Microsoft", title: "Explore Generative AI", date: "Sep 2025" },
-  { issuer: "Bank of America", title: "Global Markets Sales and Trading Analysis", date: "Jul 2025", id: "Pd2suzdN5WJnEjtN9" },
-  { issuer: "NSW Government", title: "Economic Analysis", date: "Jul 2025", id: "QEwsEzrLPxgEQyXsh" },
-  { issuer: "University of Illinois Urbana-Champaign", title: "Financial Accounting: Foundations", date: "Aug 2025" },
-  { issuer: "University of Michigan", title: "Programming for Everybody (Getting Started with Python)", date: "Jun 2025" },
-  { issuer: "University of Michigan", title: "Python Data Structures", date: "Jul 2025" },
+  { category: "Financial Markets & Economics", issuer: "Yale University", title: "Financial Markets", date: "Jun 2026", id: "XKJ23HLKL90Z" },
+  { category: "Finance & Investment Banking", issuer: "J.P. Morgan Chase & Co.", title: "Quantitative Research", date: "Jun 2026" },
+  { category: "Data Analytics & Business Intelligence", issuer: "Deloitte", title: "Data Analytics", date: "May 2026" },
+  { category: "Technology & Computer Science", issuer: "Anthropic", title: "Introduction to Agent Skills", date: "Mar 2026" },
+  { category: "Consulting & Strategy", issuer: "BCG X", title: "Introduction to Data for Decision Makers", date: "Dec 2025", id: "WbBDb3oLYPsi6Bxib" },
+  { category: "Technology & Computer Science", issuer: "Cisco Networking Academy", title: "Security and Connectivity", date: "Dec 2025" },
+  { category: "Technology & Computer Science", issuer: "Cisco Networking Academy", title: "Introduction to Modern AI", date: "Dec 2025" },
+  { category: "Technology & Computer Science", issuer: "Cisco Networking Academy", title: "HTML Essentials", date: "Sep 2025" },
+  { category: "Financial Markets & Economics", issuer: "City of Moreton Bay", title: "Economic Development", date: "Jul 2025", id: "XrvQY9yzRAeuPujCT" },
+  { category: "Technology & Computer Science", issuer: "Microsoft", title: "Explore Generative AI", date: "Sep 2025" },
+  { category: "Finance & Investment Banking", issuer: "Bank of America", title: "Global Markets Sales and Trading Analysis", date: "Jul 2025", id: "Pd2suzdN5WJnEjtN9" },
+  { category: "Financial Markets & Economics", issuer: "NSW Government", title: "Economic Analysis", date: "Jul 2025", id: "QEwsEzrLPxgEQyXsh" },
+  { category: "Finance & Investment Banking", issuer: "University of Illinois Urbana-Champaign", title: "Financial Accounting: Foundations", date: "Aug 2025" },
+  { category: "Technology & Computer Science", issuer: "University of Michigan", title: "Programming for Everybody (Getting Started with Python)", date: "Jun 2025" },
+  { category: "Technology & Computer Science", issuer: "University of Michigan", title: "Python Data Structures", date: "Jul 2025" },
 ];
 
 function Home() {
@@ -136,14 +142,11 @@ function Hero() {
           <h1 className="font-display text-[clamp(3rem,9vw,8.5rem)] leading-[0.92]">
             MRITHULA
             <br />
-            <span style={{ color: "var(--muted-foreground)" }}>VIJAY,</span>
-            <br />
-            <span className="font-script" style={{ color: "var(--pop-pink)" }}>curious </span>
-            <span className="font-script">by default.</span>
+            <span style={{ color: "var(--muted-foreground)" }}>VIJAY.</span>
           </h1>
           <p className="mt-8 max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed">
-            Computer Science Engineering student building broad foundations across
-            AI, economics, geopolitics, and history — and depth where curiosity pulls hardest.
+            <span className="font-script text-2xl md:text-3xl" style={{ color: "var(--pop-pink)" }}>Computer Science </span>
+            <span className="font-script text-2xl md:text-3xl">Engineering Student.</span>
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
@@ -207,7 +210,7 @@ function About() {
         <div className="md:col-span-4 reveal">
           <SectionLabel>About</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl leading-[0.95]">
-            A <span className="font-script" style={{ color: "var(--pop-blue)" }}>T-shaped</span> mind.
+            A <span className="font-script" style={{ color: "var(--pop-blue)" }}>curious</span> mind.
           </h2>
         </div>
         <div className="md:col-span-7 md:col-start-6 space-y-6 text-lg leading-relaxed reveal">
@@ -216,9 +219,8 @@ function About() {
             patterns and interdisciplinary connections.
           </p>
           <p>
-            I believe in the T-shaped approach to learning: building broad foundational
-            knowledge across domains while developing deeper expertise in areas that
-            truly interest me.
+            I believe in building broad foundational knowledge across domains while
+            developing deeper expertise in areas that truly interest me.
           </p>
           <p className="text-muted-foreground">
             I enjoy exploring how ideas from different fields intersect and influence one
@@ -237,14 +239,22 @@ function Education() {
       school: "Easwari Engineering College",
       degree: "Bachelor of Engineering (B.E.) — Computer Science and Engineering",
       period: "2025 – 2029",
+      grades: "",
       activities: ACTIVITIES,
       accent: "pink" as const,
     },
     {
       school: "Chettinad Hari Shree Vidyalayam",
-      degree: "School Education",
-      period: "",
-      activities: [] as string[],
+      degree: "ICSE & ISC School Education",
+      period: "Until 2025",
+      grades: "ICSE Class X — 95%  ·  ISC Class XII — 93%",
+      activities: [
+        "Under-Secretary General & Public Relations, CHSV MUN 2024",
+        "Public Relations & Design Team, Vizha (School Cultural Fest)",
+        "Model United Nations",
+        "Quizzing Competitions",
+        "Shark Tank Competitions",
+      ],
       accent: "blue" as const,
     },
   ];
@@ -274,10 +284,13 @@ function Education() {
                   <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">{it.period}</div>
                   <h3 className="font-display text-2xl md:text-3xl">{it.school}</h3>
                   <p className="mt-2 text-muted-foreground">{it.degree}</p>
+                  {it.grades && (
+                    <p className="mt-2 text-sm" style={{ color: c }}>{it.grades}</p>
+                  )}
                   {it.activities.length > 0 && (
                     <div className="mt-5">
                       <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3">
-                        Activities & Societies
+                        Activities & Leadership
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {it.activities.map((a, i) => (
@@ -350,8 +363,8 @@ function Certifications() {
   const [active, setActive] = useState<Cert | null>(null);
   const [filter, setFilter] = useState<string>("All");
 
-  const issuers = useMemo(() => {
-    const set = new Set(CERTS.map((c) => c.issuer.split(" ")[0]));
+  const categories = useMemo(() => {
+    const set = new Set<string>(CERTS.map((c) => c.category));
     return ["All", ...Array.from(set)];
   }, []);
 
@@ -359,10 +372,20 @@ function Certifications() {
     const matchQ =
       q === "" ||
       c.title.toLowerCase().includes(q.toLowerCase()) ||
-      c.issuer.toLowerCase().includes(q.toLowerCase());
-    const matchF = filter === "All" || c.issuer.startsWith(filter);
+      c.issuer.toLowerCase().includes(q.toLowerCase()) ||
+      c.category.toLowerCase().includes(q.toLowerCase());
+    const matchF = filter === "All" || c.category === filter;
     return matchQ && matchF;
   });
+
+  const visibleCategories = (filter === "All" ? categories.slice(1) : [filter]).filter((cat) =>
+    filtered.some((c) => c.category === cat)
+  );
+
+  const catAccent = (cat: string) => {
+    const idx = categories.indexOf(cat);
+    return idx % 3 === 1 ? "var(--pop-pink)" : idx % 3 === 2 ? "var(--pop-blue)" : "var(--pop-orange)";
+  };
 
   return (
     <section id="certifications" className="px-6 md:px-10 py-24 md:py-32 border-t border-border">
@@ -374,7 +397,7 @@ function Certifications() {
           </h2>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-3 md:items-center mb-8 reveal">
+        <div className="flex flex-col md:flex-row gap-3 md:items-center mb-10 reveal">
           <div className="relative flex-1 max-w-md">
             <Search className="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
@@ -385,7 +408,7 @@ function Certifications() {
             />
           </div>
           <div className="flex flex-wrap gap-2">
-            {issuers.slice(0, 7).map((f, i) => (
+            {categories.map((f, i) => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
@@ -400,24 +423,38 @@ function Certifications() {
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filtered.map((c, i) => {
-            const accent = i % 3 === 0 ? "var(--pop-pink)" : i % 3 === 1 ? "var(--pop-blue)" : "var(--pop-orange)";
+        <div className="space-y-14">
+          {visibleCategories.map((cat) => {
+            const accent = catAccent(cat);
+            const items = filtered.filter((c) => c.category === cat);
             return (
-              <button
-                key={c.title + c.issuer}
-                onClick={() => setActive(c)}
-                className="group text-left rounded-2xl border border-border p-6 bg-card hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{c.date}</span>
-                  <ArrowUpRight className="size-4 text-muted-foreground transition-transform group-hover:rotate-45" style={{ color: accent }} />
+              <div key={cat} className="reveal">
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="size-2 rounded-full" style={{ background: accent }} />
+                  <h3 className="font-display text-xl md:text-2xl">{cat}</h3>
+                  <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                    {items.length} {items.length === 1 ? "credential" : "credentials"}
+                  </span>
                 </div>
-                <h3 className="font-display text-lg leading-tight mb-2 group-hover:[color:var(--hc)] transition-colors" style={{ ["--hc" as string]: accent }}>
-                  {c.title}
-                </h3>
-                <p className="text-sm text-muted-foreground">{c.issuer}</p>
-              </button>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {items.map((c) => (
+                    <button
+                      key={c.title + c.issuer}
+                      onClick={() => setActive(c)}
+                      className="group text-left rounded-2xl border border-border p-6 bg-card hover:-translate-y-1 transition-all duration-300"
+                    >
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{c.date}</span>
+                        <ArrowUpRight className="size-4 transition-transform group-hover:rotate-45" style={{ color: accent }} />
+                      </div>
+                      <h4 className="font-display text-lg leading-tight mb-2 group-hover:[color:var(--hc)] transition-colors" style={{ ["--hc" as string]: accent }}>
+                        {c.title}
+                      </h4>
+                      <p className="text-sm text-muted-foreground">{c.issuer}</p>
+                    </button>
+                  ))}
+                </div>
+              </div>
             );
           })}
         </div>
