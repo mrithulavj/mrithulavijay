@@ -499,6 +499,24 @@ function Certifications() {
 }
 
 function Writing() {
+  const [open, setOpen] = useState<Post | null>(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    setProgress(0);
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(null);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const popColor = (a: Post["accent"]) => `var(--pop-${a})`;
+
   return (
     <section id="writing" className="px-6 md:px-10 py-24 md:py-32 border-t border-border">
       <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-10">
@@ -512,24 +530,77 @@ function Writing() {
             history, technology, and learning.
           </p>
         </div>
-        <div className="md:col-span-7 reveal">
-          <div className="rounded-2xl border border-dashed border-border p-10 md:p-14 text-center bg-card">
-            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-muted-foreground mb-4">
-              <span className="size-1.5 rounded-full" style={{ background: "var(--pop-pink)" }} />
-              Coming soon
-            </div>
-            <h3 className="font-display text-2xl md:text-3xl mb-3">
-              The first essays are <span className="font-script">brewing</span>.
-            </h3>
-            <p className="text-muted-foreground max-w-md mx-auto">
-              Articles and essays will appear here as I publish them. Check back shortly.
-            </p>
-          </div>
+        <div className="md:col-span-7 reveal space-y-4">
+          {POSTS.map((post, i) => (
+            <article key={post.id} className="rounded-2xl border border-border bg-card p-6 md:p-8 transition-colors hover:border-foreground/30">
+              <div className="flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-muted-foreground mb-3">
+                <span className="size-1.5 rounded-full" style={{ background: popColor(post.accent) }} />
+                {post.tag}
+                <span className="ml-auto tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+              </div>
+              <h3 className="font-display text-xl md:text-2xl leading-tight">{post.title}</h3>
+              <p className="mt-3 text-muted-foreground text-sm md:text-base">{post.blurb}</p>
+              <button
+                onClick={() => setOpen(post)}
+                className="mt-5 inline-flex items-center gap-2 text-sm font-medium transition-colors"
+                style={{ color: "inherit" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = popColor(post.accent))}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "")}
+              >
+                Read essay <ArrowUpRight className="size-4" />
+              </button>
+            </article>
+          ))}
         </div>
       </div>
+
+      {open && (
+        <div
+          className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-start justify-center p-4 md:p-10 overflow-hidden"
+          onClick={() => setOpen(null)}
+        >
+          <div
+            className="relative w-full max-w-3xl max-h-full overflow-y-auto rounded-2xl border border-border bg-card"
+            onClick={(e) => e.stopPropagation()}
+            onScroll={(e) => {
+              const el = e.currentTarget;
+              const max = el.scrollHeight - el.clientHeight;
+              setProgress(max > 0 ? (el.scrollTop / max) * 100 : 100);
+            }}
+          >
+            <div className="sticky top-0 z-10 bg-card/95 backdrop-blur border-b border-border">
+              <div className="h-1 w-full bg-border">
+                <div
+                  className="h-full transition-[width] duration-150"
+                  style={{ width: `${progress}%`, background: popColor(open.accent) }}
+                />
+              </div>
+              <div className="flex items-start gap-4 p-5 md:p-7">
+                <div>
+                  <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground mb-2">{open.tag}</div>
+                  <h3 className="font-display text-2xl md:text-3xl leading-tight">{open.title}</h3>
+                </div>
+                <button
+                  onClick={() => setOpen(null)}
+                  aria-label="Close essay"
+                  className="ml-auto shrink-0 rounded-full border border-border p-2 hover:bg-muted transition-colors"
+                >
+                  <X className="size-4" />
+                </button>
+              </div>
+            </div>
+            <div className="p-5 md:p-7 pt-0 md:pt-0 space-y-5 text-[15px] md:text-base leading-relaxed text-muted-foreground">
+              {open.body.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
+
 
 function Contact() {
   const links = [
