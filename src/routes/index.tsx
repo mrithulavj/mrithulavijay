@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useReveal } from "@/hooks/use-reveal";
 import { useTheme } from "@/hooks/use-theme";
 import mrithulaAsset from "@/assets/mrithula.png.asset.json";
+import { POSTS, type Post } from "@/lib/posts";
 import { Moon, Sun, ArrowDown, Mail, Linkedin, Github, Search, X, Download, ArrowUpRight } from "lucide-react";
 
 export const Route = createFileRoute("/")({
